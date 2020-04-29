@@ -38,11 +38,13 @@ function updateVersionMenu(package) {
     $.each(data.releases, function(index, rel) {
       var pVer = rel.version;
       var pDoc = rel.docURL;
+      var pStat = "";
+      pStat = ((rel.status === "current") ? " (stable)" : pStat);
       // docURL is a full path to the docset index file. Build path to current page instead.
       pDoc = pDoc.substring(0, pDoc.lastIndexOf("/"));
       pDoc = pDoc + ((typeof thisPage === 'string') ? thisPage : "/");
       // Build the link
-      var menuURL = "<li><a href=\""+ pDoc +"\">" + " Version " + pVer + "</a></li>";
+      var menuURL = "<li><a href=\""+ pDoc +"\">" + " Version " + pVer + pStat + "</a></li>";
       // Add menuURL to menu if json file says it's okay, and if it's not the current version.
       if (parseInt(rel.include) && (thisVersion != rel.version)) {
         $("#docmenu").append(menuURL);
